@@ -19,7 +19,7 @@ El objetivo es simular un sistema básico de gestión de consultas ópticas y mo
 
   * **API RESTful:** Endpoints para la gestión de `Pacientes`, `Consultas` y `Prescripciones de Lentes`.
   * **Tecnología:** Desarrollado con **Java 17+** y **Spring Boot 3+**.
-  * **Persistencia:** Integración con **MySQL** o **PostgreSQL** utilizando Spring Data JPA.
+  * **Persistencia:** Integración con **MySQL** utilizando Spring Data JPA.
   * **Documentación:** API documentada automáticamente con **Swagger/OpenAPI UI**, accesible en `/swagger-ui.html`.
   * **Endpoints de Análisis:** Endpoints específicos para facilitar la extracción de datos agregados para el dashboard.
 
@@ -36,20 +36,19 @@ El objetivo es simular un sistema básico de gestión de consultas ópticas y mo
 
 ## 🛠️ Tecnologías Utilizadas
 
-  * **Backend:** Java, Spring Boot, Spring Data JPA, Maven, Lombok (opcional), Swagger/OpenAPI.
-  * **Bases de Datos:** MySQL / PostgreSQL.
-  * **Análisis y Visualización:** Power BI / Locker Studio, SQL.
+  * **Backend:** Java, Spring Boot, Spring Data JPA, Maven, Lombok, Swagger/OpenAPI.
+  * **Bases de Datos:** MySQL.
+  * **Análisis y Visualización:** Power BI, SQL.
   * **Control de Versiones:** Git / GitHub.
 
 ## 📋 Requisitos Previos
 
 Asegúrate de tener instalado lo siguiente:
 
-  * **Java Development Kit (JDK) 17 o superior.**
-  * **Maven 3.6 o superior.**
-  * **Docker** (opcional, para ejecutar la base de datos fácilmente).
-  * **MySQL** o **PostgreSQL** instalado localmente o a través de Docker.
-  * **Power BI Desktop** o acceso a **Locker Studio** (web).
+  * **Java Development Kit (JDK) 17**
+  * **Maven 3.6**
+  * **MySQL**
+  * **Power BI Desktop**
 
 ## 🚀 Cómo Ejecutar el Proyecto
 
@@ -65,7 +64,7 @@ cd OptiData-API-Dashboard
 ### 2\. Configuración de la Base de Datos
 
   * **Crear Base de Datos:**
-    Crea una base de datos con el nombre `optidata` (o el que prefieras) en tu instancia de MySQL/PostgreSQL.
+    Crea una base de datos con el nombre `optidata` en tu instancia de MySQL.
 
     ```sql
     -- Para MySQL
@@ -85,13 +84,6 @@ cd OptiData-API-Dashboard
     spring.datasource.password=tu_password_mysql
     spring.jpa.hibernate.ddl-auto=update # o create para la primera vez
     spring.jpa.show-sql=true
-
-    # Configuración para PostgreSQL (descomentar si usas PostgreSQL y comentar MySQL)
-    # spring.datasource.url=jdbc:postgresql://localhost:5432/optidata
-    # spring.datasource.username=tu_usuario_postgresql
-    # spring.datasource.password=tu_password_postgresql
-    # spring.jpa.hibernate.ddl-auto=update
-    # spring.jpa.show-sql=true
     ```
 
 ### 3\. Ejecutar el Backend
@@ -104,9 +96,9 @@ mvn spring-boot:run
 La API estará disponible en `http://localhost:8080`.
 Puedes acceder a la documentación de Swagger en `http://localhost:8080/swagger-ui.html`.
 
-### 4\. Llenar la Base de Datos (Opcional, pero Recomendado)
+### 4\. Llenar la Base de Datos
 
-Puedes insertar algunos datos de prueba manualmente a través de Swagger UI o ejecutando los scripts SQL de ejemplo que se encontrarán en la carpeta `src/main/resources/sql` (crea esta carpeta y añade tus scripts).
+Puedes insertar algunos datos de prueba manualmente a través de Swagger UI o ejecutando los scripts SQL de ejemplo que se encontrarán en la carpeta `src/main/resources/sql` 
 
 ### 5\. Configurar el Dashboard
 
