@@ -7,7 +7,7 @@
 Este proyecto demuestra mi capacidad para:
 
   * Diseñar y construir **APIs RESTful escalables** con Java y Spring Boot.
-  * Gestionar y persistir datos eficientemente en **bases de datos relacionales**.
+  * Gestionar y persistir datos eficientemente en bases de datos relacionales utilizando Flyway para la gestión de esquemas y migración de datos.
   * Documentar APIs de forma clara utilizando **Swagger/OpenAPI**.
   * Extraer, transformar y **visualizar datos** para generar *insights* accionables, utilizando Power BI o Locker Studio.
 
@@ -19,13 +19,13 @@ El objetivo es simular un sistema básico de gestión de consultas ópticas y mo
 
   * **API RESTful:** Endpoints para la gestión de `Pacientes`, `Consultas` y `Prescripciones de Lentes`.
   * **Tecnología:** Desarrollado con **Java 17+** y **Spring Boot 3+**.
-  * **Persistencia:** Integración con **MySQL** utilizando Spring Data JPA.
+  * **Persistencia:** Integración con MySQL utilizando Spring Data JPA y Flyway para las migraciones de base de datos.
   * **Documentación:** API documentada automáticamente con **Swagger/OpenAPI UI**, accesible en `/swagger-ui.html`.
   * **Endpoints de Análisis:** Endpoints específicos para facilitar la extracción de datos agregados para el dashboard.
 
 ### Frontend (OptiData Dashboard)
 
-  * **Visualización de Datos:** Dashboard interactivo creado en **Power BI** o **Locker Studio**.
+  * **Visualización de Datos:** Dashboard interactivo creado en **Power BI**.
   * **Métricas Clave:**
       * Tendencias de consultas (por mes/año).
       * Diagnósticos oftalmológicos más frecuentes.
@@ -36,7 +36,7 @@ El objetivo es simular un sistema básico de gestión de consultas ópticas y mo
 
 ## 🛠️ Tecnologías Utilizadas
 
-  * **Backend:** Java, Spring Boot, Spring Data JPA, Maven, Lombok, Swagger/OpenAPI.
+  * **Backend:** Java, Spring Boot, Spring Data JPA, Maven, Lombok, Swagger/OpenAPI, Flyway.
   * **Bases de Datos:** MySQL.
   * **Análisis y Visualización:** Power BI, SQL.
   * **Control de Versiones:** Git / GitHub.
@@ -69,22 +69,29 @@ cd OptiData-API-Dashboard
     ```sql
     -- Para MySQL
     CREATE DATABASE optidata;
-
-    -- Para PostgreSQL
-    CREATE DATABASE optidata;
     ```
+
+    Nota: Si ya existe un schema optidata de una ejecución anterior, considera eliminarlo (DROP DATABASE optidata;) antes de recrearlo para asegurar un inicio limpio y evitar conflictos con Flyway.
 
   * **Configurar `application.properties`:**
     Abre `src/main/resources/application.properties` y configura las credenciales de tu base de datos:
 
     ```properties
     # Configuración para MySQL
-    spring.datasource.url=jdbc:mysql://localhost:3306/optidata?useSSL=false&serverTimezone=UTC
-    spring.datasource.username=tu_usuario_mysql
-    spring.datasource.password=tu_password_mysql
-    spring.jpa.hibernate.ddl-auto=update # o create para la primera vez
+    spring.jpa.hibernate.ddl-auto=none
+    spring.datasource.url=jdbc:mysql://localhost:3306/${DATABASE_DB}
+    spring.datasource.username=${USER_DB}
+    spring.datasource.password=${PASSWORD_DB}
+    spring.datasource.driver-class-name=com.mysql.cj.jdbc.Driver
     spring.jpa.show-sql=true
+    
+    # Flyway ejecuta automaticamente los scripts
+    spring.flyway.enabled=true
+    spring.flyway.locations=classpath:db/migration
+    spring.flyway.baseline-on-migrate=true
     ```
+
+    Nota: Flyway ejecutará automáticamente los scripts de migración (ubicados en src/main/resources/db/migration) al iniciar la aplicación, creando las tablas y cargando los datos iniciales.
 
 ### 3\. Ejecutar el Backend
 
@@ -112,7 +119,7 @@ Puedes insertar algunos datos de prueba manualmente a través de Swagger UI o ej
 #### **Opción B: Conexión Directa a la Base de Datos**
 
 1.  Abre Power BI Desktop o Locker Studio.
-2.  Utiliza el conector de **MySQL** o **PostgreSQL** para conectarte a tu base de datos `optidata`.
+2.  Utiliza el conector de **MySQL** para conectarte a tu base de datos `optidata`.
 3.  Ingresa las credenciales de tu base de datos.
 4.  Selecciona las tablas `Pacientes`, `Consultas` y `PrescripcionesLentes` (o las vistas que crees).
 5.  Construye tus visualizaciones y reportes.
@@ -121,7 +128,7 @@ Puedes insertar algunos datos de prueba manualmente a través de Swagger UI o ej
 
 Aquí se mostrarán capturas de pantalla de los dashboards en Power BI/Locker Studio, destacando los principales insights obtenidos.
 
-*(Aquí irían tus screenshots de Power BI/Locker Studio mostrando el dashboard con gráficos y métricas. Por ejemplo:)*
+*(Aquí irían tus screenshots de Power BI mostrando el dashboard con gráficos y métricas. Por ejemplo:)*
 
   * **[Captura de Pantalla 1: Consultas por Mes]**
       * *Insight:* "Observamos un pico de consultas en los meses de marzo y agosto, lo que podría indicar la necesidad de reforzar el personal en esas temporadas."
