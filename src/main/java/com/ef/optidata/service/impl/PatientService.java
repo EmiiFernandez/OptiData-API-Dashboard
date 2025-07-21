@@ -4,6 +4,7 @@ import com.ef.optidata.dto.RequestCreatePatientDTO;
 import com.ef.optidata.dto.ResponseCreatePatientDTO;
 import com.ef.optidata.dto.ResponsePatientDTO;
 import com.ef.optidata.entity.Patient;
+import com.ef.optidata.exception.ResourceAlreadyExistsException;
 import com.ef.optidata.exception.ResourceNotFoundException;
 import com.ef.optidata.repository.IPatientRepository;
 import com.ef.optidata.mapper.PatientMapper;
@@ -12,6 +13,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
 @RequiredArgsConstructor
@@ -22,7 +24,18 @@ public class PatientService implements IPatientService {
 
     @Override
     public ResponseCreatePatientDTO createPatient(RequestCreatePatientDTO requestCreatePatientDTO) {
-        Patient patient = patientMapper.requestDtoToPatient(requestCreatePatientDTO);
+        boolean patientExists = iPatientRepository.existsByIdentityDocumentAndBirthDate(
+                requestCreatePatientDTO.getIdentityDocument(),
+                requestCreatePatientDTO.getBirthDate()
+        );
+
+        if (patientExists) {
+            throw new ResourceAlreadyExistsException(
+                    String.format("El paciente ya existe. Documento: %s, Fecha de nacimiento: %s",
+                            requestCreatePatientDTO.getIdentityDocument(),
+                            requestCreatePatientDTO.getBirthDate())
+            );
+        }        Patient patient = patientMapper.requestDtoToPatient(requestCreatePatientDTO);
         iPatientRepository.save(patient);
         return patientMapper.responseCreatePatient(patient);
     }
