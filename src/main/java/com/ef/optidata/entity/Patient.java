@@ -31,12 +31,12 @@ public class Patient {
     @Column(name = "last_name", nullable = false, length = 100)
     private String lastName;
 
-    @Column(name = "identity_document", nullable = false, unique = true, length = 20)
-    private String identityDocument;
-
     @Column(name = "document_type", nullable = false, length = 20)
     @Enumerated(EnumType.STRING)
     private DocumentType documentType;
+
+    @Column(name = "identity_document", nullable = false, unique = true, length = 20)
+    private String identityDocument;
 
     @Column(name = "birth_date", nullable = false)
     private LocalDate birthDate;

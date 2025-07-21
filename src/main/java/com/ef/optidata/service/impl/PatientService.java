@@ -23,16 +23,15 @@ public class PatientService implements IPatientService {
     @Override
     public ResponseCreatePatientDTO createPatient(RequestCreatePatientDTO requestCreatePatientDTO) {
         Patient patient = patientMapper.requestDtoToPatient(requestCreatePatientDTO);
-        ResponseCreatePatientDTO responseCreatePatientDTO = patientMapper.responseCreatePatient(patient);
-        return responseCreatePatientDTO;
+        iPatientRepository.save(patient);
+        return patientMapper.responseCreatePatient(patient);
     }
 
     @Override
     public ResponsePatientDTO getPatientId(Long id) {
         Patient patient = iPatientRepository.findById(id)
                 .orElseThrow(() -> new ResourceNotFoundException("Not found patient by id: " + id));
-        ResponsePatientDTO responsePatientDTO = patientMapper.responsePatient(patient);
-        return responsePatientDTO;
+        return patientMapper.responsePatient(patient);
     }
 
     @Override
@@ -41,7 +40,6 @@ public class PatientService implements IPatientService {
         if (patients.isEmpty()) {
             throw new ResourceNotFoundException("No se encontraron pacientes.");
         }
-        List<ResponsePatientDTO> patientDTOList = patientMapper.responseListAllPatients(patients);
-        return patientDTOList;
+        return patientMapper.responseListAllPatients(patients);
     }
 }

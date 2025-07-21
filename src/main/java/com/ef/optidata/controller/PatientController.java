@@ -20,8 +20,10 @@ public class PatientController {
 
     @PostMapping()
     public ResponseEntity<ResponseCreatePatientDTO> createPatient(@Valid @RequestBody RequestCreatePatientDTO requestCreatePatientDTO) {
-
+        ResponseCreatePatientDTO response = patientService.createPatient(requestCreatePatientDTO);
+        return ResponseEntity.ok(response);
     }
+
 
     @GetMapping("/{id}")
     public ResponseEntity<ResponsePatientDTO> getPatientId( @PathVariable Long id) {

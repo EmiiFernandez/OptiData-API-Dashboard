@@ -13,8 +13,8 @@ public class ResponsePatientDTO {
     private Long idPatient;
     private String firstName;
     private String lastName;
-    private String identityDocument;
     private DocumentType documentType;
+    private String identityDocument;
     private LocalDate birthDate;
     private String email;
     private String phone;
