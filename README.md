@@ -7,7 +7,7 @@
 Este proyecto demuestra mi capacidad para:
 
   * Diseñar y construir **APIs RESTful escalables** con Java y Spring Boot.
-  * Gestionar y persistir datos eficientemente en bases de datos relacionales utilizando Flyway para la gestión de esquemas y migración de datos.
+  * Gestionar y persistir datos eficientemente en bases de datos relacionales (**MySQL**) utilizando **Flyway** para la gestión de esquemas y migración de datos.
   * Documentar APIs de forma clara utilizando **Swagger/OpenAPI**.
   * Extraer, transformar y **visualizar datos** para generar *insights* accionables, utilizando Power BI o Locker Studio.
 
