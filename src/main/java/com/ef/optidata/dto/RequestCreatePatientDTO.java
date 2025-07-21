@@ -5,12 +5,9 @@ import lombok.*;
 
 import java.time.LocalDate;
 
-@Getter
-@Setter
-@AllArgsConstructor
+@Data
 @NoArgsConstructor
-@ToString
-@EqualsAndHashCode
+@AllArgsConstructor
 public class RequestCreatePatientDTO {
     private String firstName;
     private String lastName;

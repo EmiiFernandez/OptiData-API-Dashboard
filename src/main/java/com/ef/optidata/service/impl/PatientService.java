@@ -38,6 +38,9 @@ public class PatientService implements IPatientService {
     @Override
     public List<ResponsePatientDTO> getAllPatient() {
         List<Patient> patients = iPatientRepository.findAll();
+        if (patients.isEmpty()) {
+            throw new ResourceNotFoundException("No se encontraron pacientes.");
+        }
         List<ResponsePatientDTO> patientDTOList = patientMapper.responseListAllPatients(patients);
         return patientDTOList;
     }

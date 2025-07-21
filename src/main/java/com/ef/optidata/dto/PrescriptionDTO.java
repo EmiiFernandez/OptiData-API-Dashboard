@@ -1,15 +1,12 @@
 package com.ef.optidata.dto;
 
 import com.ef.optidata.entity.enums.LensType;
-import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.Setter;
+import lombok.*;
 
 import java.time.LocalDate;
 
-@Getter
-@Setter
+@Data
+@NoArgsConstructor
 @AllArgsConstructor
 public class PrescriptionDTO {
     private Double sphereOD;
@@ -19,11 +16,9 @@ public class PrescriptionDTO {
     private Double cylinderOS;
     private Integer axisOS;
     private Double addition;
-    @Enumerated(EnumType.STRING)
     private LensType lensType;
     private LocalDate prescriptionDate;
     private Double pupillaryDistance;
-    @Enumerated(EnumType.STRING)
     private LensType diagnosisType;
     private String notes;
 }
