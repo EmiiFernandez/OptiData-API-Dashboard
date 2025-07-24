@@ -4,6 +4,7 @@ import com.ef.optidata.entity.enums.LensType;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.Max;
 import jakarta.validation.constraints.Min;
+import lombok.*;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
 
@@ -15,18 +16,22 @@ import java.util.Objects;
 
 @Entity
 @Table(name = "prescriptions")
+@Getter
+@Setter
+@NoArgsConstructor
+@AllArgsConstructor
+@RequiredArgsConstructor
+@ToString
+@EqualsAndHashCode
 public class Prescription {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long idPrescription;
 
-    @Column(name = "consultation_id", nullable = false)
-    private Long consultationId;
-
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "consultation_id", insertable = false, updatable = false)
-    private Consultation consultation;
+    @ManyToOne
+    @JoinColumn(name = "patient_id")
+    private Patient patient;
 
     // Right Eye (OD - Oculus Dexter)
     @Column(name = "sphere_od", precision = 4, scale = 2)
@@ -55,9 +60,6 @@ public class Prescription {
     @Column(name = "addition", precision = 4, scale = 2)
     private BigDecimal addition;
 
-    @Column(name = "lens_type", nullable = false, length = 50)
-    @Enumerated(EnumType.STRING)
-    private LensType lensType;
 
     @Column(name = "prescription_date", nullable = false)
     private LocalDate prescriptionDate;
@@ -69,11 +71,12 @@ public class Prescription {
     @Enumerated(EnumType.STRING)
     private LensType diagnosisType;
 
+    @Column(name = "lens_type", nullable = false, length = 50)
+    @Enumerated(EnumType.STRING)
+    private LensType lensType;
+
     @Column(name = "notes", length = 1000)
     private String notes;
-
-    @Column(name = "active", nullable = false)
-    private Boolean active = true;
 
     @CreationTimestamp
     @Column(name = "created_at", nullable = false, updatable = false)

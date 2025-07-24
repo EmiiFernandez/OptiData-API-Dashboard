@@ -15,14 +15,16 @@ import java.time.Period;
 @Table(name = "patients")
 @Getter
 @Setter
-@AllArgsConstructor
 @NoArgsConstructor
+@AllArgsConstructor
+@RequiredArgsConstructor
 @ToString
 @EqualsAndHashCode
 public class Patient {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name="patient_id")
     private Long idPatient;
 
     @Column(name = "first_name", nullable = false, length = 100)
