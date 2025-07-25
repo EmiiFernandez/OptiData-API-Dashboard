@@ -18,18 +18,26 @@ import java.time.LocalDateTime;
 public class Sale {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+    @Column(name="sale_id")
+    private Long idSale;
 
     @OneToOne
     @JoinColumn(name = "order_id")
     private Order order;
 
+    @Column(name = "delivery_date")
     private LocalDateTime deliveryDate;
+
+    @Column(name = "delivery_by")
     private String deliveredBy;
-    private String customerSignature; 
+
+    @Column(name = "customer_signature")
+    private String customerSignature;
+
+    @Column(name = "notes")
     private String deliveryNotes;
-    private Boolean customerSatisfied = true;
 
     @CreationTimestamp
+    @Column(name = "create_at")
     private LocalDateTime createdAt;
 }

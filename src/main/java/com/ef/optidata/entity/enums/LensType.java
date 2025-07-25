@@ -6,15 +6,14 @@ import lombok.Getter;
 @Getter
 @AllArgsConstructor
 public enum LensType {
-    MONOFOCAL("Monofocal"),
+    SINGLE_VISION("Monofocal"),
     BIFOCAL("Bifocal"),
-    PROGRESIVO("Progresivo"),
-    CERCA("Cerca"),
-    INTERMEDIA ("Intermedia"),
-    LEJOS("Lejos"),
-    BLUE_LIGHT("Blue Light"),
+    PROGRESSIVE("Progresivo"),
+    NEAR("Cerca"),
+    INTERMEDIATE("Intermedia"),
+    DISTANCE("Lejos"),
+    BLUE_LIGHT("Blue Light"), // Puede dejarse así si se usa tal cual comercialmente
     AR("Antirreflex");
 
     private final String description;
-
 }

@@ -1,5 +1,6 @@
 package com.ef.optidata.entity;
 
+import com.ef.optidata.entity.enums.DiagnosisType;
 import com.ef.optidata.entity.enums.LensType;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.Max;
@@ -27,6 +28,7 @@ public class Prescription {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name="prescription_id")
     private Long idPrescription;
 
     @ManyToOne
@@ -69,7 +71,7 @@ public class Prescription {
 
     @Column(name = "diagnosis_type", nullable = false, length = 50)
     @Enumerated(EnumType.STRING)
-    private LensType diagnosisType;
+    private DiagnosisType diagnosisType;
 
     @Column(name = "lens_type", nullable = false, length = 50)
     @Enumerated(EnumType.STRING)
@@ -93,7 +95,7 @@ public class Prescription {
     }
 
     public boolean requiresProgressive() {
-        return lensType == LensType.PROGRESIVO &&
+        return lensType == LensType.PROGRESSIVE &&
                 addition != null &&
                 addition.compareTo(BigDecimal.ZERO) > 0;
     }
