@@ -30,7 +30,7 @@ public class Prescription {
     @Column(name="prescription_id")
     private Long idPrescription;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "patient_id")
     private Patient patient;
 

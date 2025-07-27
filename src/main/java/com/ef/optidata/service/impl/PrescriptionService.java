@@ -1,8 +1,6 @@
 package com.ef.optidata.service.impl;
 
-import com.ef.optidata.dto.RequestCreatePrescription;
-import com.ef.optidata.dto.ResponseCreatePrescription;
-import com.ef.optidata.dto.ResponsePatientPrescription;
+import com.ef.optidata.dto.*;
 import com.ef.optidata.entity.Patient;
 import com.ef.optidata.entity.Prescription;
 import com.ef.optidata.exception.ResourceNotFoundException;
@@ -25,7 +23,7 @@ public class PrescriptionService implements IPrescriptionService {
     private final PrescriptionMapper prescriptionMapper;
 
     @Override
-    public ResponseCreatePrescription createPrescription(RequestCreatePrescription requestCreatePrescription) {
+    public ResponsePrescription createPrescription(RequestCreatePrescription requestCreatePrescription) {
         Optional<Patient> patientOpt = iPatientRepository.findByDocumentNumber(requestCreatePrescription.getDocumentNumber());
         if(patientOpt.isPresent()) {
             Patient patient = patientOpt.get();
@@ -57,5 +55,27 @@ public class PrescriptionService implements IPrescriptionService {
         }
 
         return prescriptionMapper.ResponsePatientPrescription(patient, prescriptions);
+    }
+
+    @Override
+    public List<ResponsePrescription> getAllPrescriptions() {
+        List<Prescription> prescriptions = iPrescriptionRepository.findAll();
+
+        if (prescriptions == null || prescriptions.isEmpty()) {
+            throw new ResourceNotFoundException("No se encontraron prescripciones");
+        }
+
+        return prescriptionMapper.ResponseListPrescription(prescriptions);
+    }
+
+    @Override
+    public List<ResponsePrescriptionWithDataPatient> getAllPrescriptionsWithPatient() {
+        List<Prescription> prescriptions = iPrescriptionRepository.findAllWithPatient();
+
+        if (prescriptions == null || prescriptions.isEmpty()) {
+            throw new ResourceNotFoundException("No se encontraron prescripciones");
+        }
+
+        return prescriptionMapper.ResponsePrescriptionWithDataPatient(prescriptions);
     }
 }

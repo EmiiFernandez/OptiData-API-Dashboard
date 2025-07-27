@@ -4,7 +4,7 @@ import com.ef.optidata.dto.RequestCreatePatient;
 import com.ef.optidata.dto.ResponsePatient;
 import com.ef.optidata.dto. ResponseCreatePatient;
 import com.ef.optidata.entity.Patient;
-import com.ef.optidata.exception.ResourceAlreadyExistsException;
+import com.ef.optidata.exception.DuplicateResourceException;
 import com.ef.optidata.exception.ResourceNotFoundException;
 import com.ef.optidata.mapper.PatientMapper;
 import com.ef.optidata.repository.IPatientRepository;
@@ -29,7 +29,7 @@ public class PatientService implements IPatientService {
         );
 
         if (patientExists) {
-            throw new ResourceAlreadyExistsException(
+            throw new DuplicateResourceException(
                     String.format("El paciente ya existe. Documento: %s, Fecha de nacimiento: %s",
                             requestCreatePatient.getDocumentNumber(),
                             requestCreatePatient.getBirthDate())

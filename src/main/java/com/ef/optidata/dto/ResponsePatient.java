@@ -14,7 +14,7 @@ public class ResponsePatient {
     private String firstName;
     private String lastName;
     private DocumentType documentType;
-    private String identityDocument;
+    private String documentNumber;
     private LocalDate birthDate;
     private String email;
     private String phone;

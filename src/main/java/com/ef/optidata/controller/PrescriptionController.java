@@ -1,9 +1,6 @@
 package com.ef.optidata.controller;
 
-import com.ef.optidata.dto.RequestCreatePrescription;
-import com.ef.optidata.dto.ResponseCreatePrescription;
-import com.ef.optidata.dto.ResponsePatientPrescription;
-import com.ef.optidata.dto.ResponsePrescription;
+import com.ef.optidata.dto.*;
 import com.ef.optidata.service.impl.PrescriptionService;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
@@ -19,8 +16,20 @@ public class PrescriptionController {
     private final PrescriptionService prescriptionService;
 
     @PostMapping()
-    public ResponseEntity<ResponseCreatePrescription> createPrescription(@Valid @RequestBody RequestCreatePrescription requestCreatePrescription) {
-        ResponseCreatePrescription response = prescriptionService.createPrescription(requestCreatePrescription);
+    public ResponseEntity<ResponsePrescription> createPrescription(@Valid @RequestBody RequestCreatePrescription requestCreatePrescription) {
+        ResponsePrescription response = prescriptionService.createPrescription(requestCreatePrescription);
+        return ResponseEntity.ok(response);
+    }
+
+    @GetMapping()
+    public ResponseEntity<List<ResponsePrescription>> getAllPrescriptions() {
+        List<ResponsePrescription> response = prescriptionService.getAllPrescriptions();
+        return ResponseEntity.ok(response);
+    }
+
+    @GetMapping("/with-patient")
+    public ResponseEntity<List<ResponsePrescriptionWithDataPatient>> getAllPrescriptionsWithPatient() {
+        List<ResponsePrescriptionWithDataPatient> response = prescriptionService.getAllPrescriptionsWithPatient();
         return ResponseEntity.ok(response);
     }
 
