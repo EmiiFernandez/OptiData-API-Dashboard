@@ -10,7 +10,7 @@ import java.time.LocalDate;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-public class RequestCreatePatientDTO {
+public class RequestCreatePatient {
     @NotBlank(message = "El nombre es obligatorio")
     @Size(min = 2, max = 50, message = "El nombre debe tener entre 2 y 50 caracteres")
     private String firstName;
@@ -23,7 +23,7 @@ public class RequestCreatePatientDTO {
     private DocumentType documentType;
 
     @NotBlank(message = "El documento de identidad es obligatorio")
-    private String identityDocument;
+    private String documentNumber;
 
     @JsonFormat(pattern = "dd/MM/yyyy")
     @Past(message = "La fecha de nacimiento debe ser anterior a hoy")

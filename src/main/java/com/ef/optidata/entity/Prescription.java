@@ -21,7 +21,6 @@ import java.util.Objects;
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
-@RequiredArgsConstructor
 @ToString
 @EqualsAndHashCode
 public class Prescription {

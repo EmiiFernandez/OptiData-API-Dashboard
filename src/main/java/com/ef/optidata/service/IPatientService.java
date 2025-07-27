@@ -1,13 +1,14 @@
 package com.ef.optidata.service;
 
-import com.ef.optidata.dto.RequestCreatePatientDTO;
-import com.ef.optidata.dto.ResponseCreatePatientDTO;
-import com.ef.optidata.dto.ResponsePatientDTO;
+
+import com.ef.optidata.dto.RequestCreatePatient;
+import com.ef.optidata.dto.ResponseCreatePatient;
+import com.ef.optidata.dto.ResponsePatient;
 
 import java.util.List;
 
 public interface IPatientService {
-    ResponseCreatePatientDTO createPatient(RequestCreatePatientDTO requestCreatePatientDTO);
-    ResponsePatientDTO getPatientId(Long id);
-    List<ResponsePatientDTO> getAllPatient();
+    ResponseCreatePatient createPatient(RequestCreatePatient requestCreatePatient);
+    ResponsePatient getPatientId(Long id);
+    List<ResponsePatient> getAllPatient();
 }

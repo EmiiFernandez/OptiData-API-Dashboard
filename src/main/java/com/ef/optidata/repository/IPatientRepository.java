@@ -9,5 +9,7 @@ import java.util.Optional;
 
 @Repository
 public interface IPatientRepository extends JpaRepository<Patient, Long> {
-    Boolean existsByIdentityDocumentAndBirthDate(String identityDocument, LocalDate birthDate);
+    Boolean existsByDocumentNumberAndBirthDate(String documentNumber, LocalDate birthDate);
+
+    Optional<Patient> findByDocumentNumber(String documentNumber);
 }

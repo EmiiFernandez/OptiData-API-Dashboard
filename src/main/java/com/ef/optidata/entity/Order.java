@@ -4,21 +4,17 @@ import com.ef.optidata.entity.enums.OrderStatus;
 import jakarta.persistence.*;
 import lombok.*;
 import org.hibernate.annotations.CreationTimestamp;
-import org.hibernate.annotations.UpdateTimestamp;
 
 import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
-import java.time.temporal.ChronoUnit;
 
 @Entity
-@Table(name = "consultations")
+@Table(name = "orders")
 @Getter
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
-@RequiredArgsConstructor
 @ToString
 @EqualsAndHashCode
 public class Order {
@@ -35,19 +31,33 @@ public class Order {
     @JoinColumn(name = "prescription_id")
     private Prescription prescription;
 
+    @Column(name="order_number")
     private String orderNumber;
+
+    @Column(name="product_description")
     private String productDescription;
+
+    @Column(name="total_amount")
     private BigDecimal totalAmount;
+
+    @Column(name="paid_amount")
     private BigDecimal paidAmount = BigDecimal.ZERO;
 
     @Enumerated(EnumType.STRING)
+    @Column(name="order_status")
     private OrderStatus status = OrderStatus.PENDING;
 
+    @Column(name="estimated_delivery")
     private LocalDate estimatedDelivery;
+
+    @Column(name="actual_delivery")
     private LocalDate actualDelivery;
+
+    @Column(name="observations")
     private String observations;
 
     @CreationTimestamp
+    @Column(name="created_at")
     private LocalDateTime createdAt;
 
     // Métodos útiles

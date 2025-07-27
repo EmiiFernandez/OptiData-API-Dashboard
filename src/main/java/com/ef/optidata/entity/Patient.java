@@ -17,7 +17,6 @@ import java.time.Period;
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
-@RequiredArgsConstructor
 @ToString
 @EqualsAndHashCode
 public class Patient {
@@ -37,8 +36,8 @@ public class Patient {
     @Enumerated(EnumType.STRING)
     private DocumentType documentType;
 
-    @Column(name = "identity_document", nullable = false, unique = true, length = 20)
-    private String identityDocument;
+    @Column(name = "document_number", nullable = false, unique = true, length = 20)
+    private String documentNumber;
 
     @Column(name = "birth_date", nullable = false)
     private LocalDate birthDate;
