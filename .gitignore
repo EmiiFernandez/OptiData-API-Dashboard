@@ -34,4 +34,5 @@ build/
 
 .env
 optidata.log
+*.log
 txt
